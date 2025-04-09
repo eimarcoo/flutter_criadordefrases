@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
+
+  var frases = [
+    'A vida é 10% o que acontece e 90% como reagimos a isso.',
+    'A única maneira de fazer um ótimo trabalho é amar o que você faz.',
+    'O sucesso é a soma de pequenos esforços repetidos dia após dia.',
+    'Acredite em si mesmo e todo o resto virá naturalmente.',
+    'A persistência é o caminho do êxito.',
+  ];
+
+  var fraseGerada = 'Clique abaixo para gerar uma frase!';
+
+  void gerarFrase() {
+    var numeroAleatorio = (frases.length * 0.999999).toInt();
+    fraseGerada = frases[numeroAleatorio];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +39,7 @@ class MainApp extends StatelessWidget {
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
                 padding: EdgeInsets.all(8),
@@ -33,12 +48,15 @@ class MainApp extends StatelessWidget {
               ),
 
               Text(
-                'Frase do Dia',
+                fraseGerada,
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  gerarFrase();
+                  (context as Element).markNeedsBuild();
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
                   foregroundColor: Colors.white,
